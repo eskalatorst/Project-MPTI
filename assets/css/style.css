@@ -1,0 +1,224 @@
+:root,
+[data-bs-theme=light] {
+    --bs-blue: #485BBC;
+}
+
+body {
+    font-family: Helvetica, sans-serif;
+}
+
+h1 {
+    color: #485BBC;
+    font-size: large;
+}
+
+a.nav-menu {
+    text-decoration: none;
+    color: white;
+    padding-left: 10px;
+}
+
+.img-logo {
+    width: 42px;
+}
+
+p.koszahra {
+    font-weight: 600;
+    text-align: center;
+    padding: inherit;
+    margin-top: 10px;
+    font-size: larger;
+}
+
+header {
+    border-bottom: 2px solid #999999;
+}
+
+button.btn.btn-daftar {
+    background-color: #5E4608;
+    color: white;
+    border-color: #5E4608;
+    border-width: 2px;
+}
+
+button.btn.btn-masuk {
+    background-color: white;
+    color: #5E4608;
+    border-color: #5E4608;
+    border-width: 2px;
+}
+
+.btn.btn-daftar {
+    background-color: white;
+    color: #5E4608;
+    border-color: #5E4608;
+    border-width: 2px;
+}
+
+button.btn.btn-kontak {
+    background-color: #BC8C10;
+    color: white;
+    border-color: #BC8C10;
+}
+
+section.hero {
+    background-color: #FFFBF3;
+}
+
+img.hero-photo {
+    width: 40%;
+    margin-left: 300px;
+}
+
+h2.zahra.ms-2 {
+    margin-top: 100px;
+    color: white;
+    margin-bottom: 30px;
+}
+
+p {
+    font-family: Helvetica, sans-serif;
+}
+
+p.hero {
+    font-size: 30px;
+    margin-top: 160px;
+    margin-bottom: 40px;
+}
+
+.p1 {
+    color: rgb(43, 164, 116);
+}
+
+.center-image {
+    max-width: 100%;
+    height: auto;
+}
+
+.black {
+    color: black;
+}
+
+.red {
+    color: red;
+}
+
+.green {
+    color: green;
+}
+
+.blue {
+    color: blue;
+}
+
+.navv {
+    background-color: #4f4e3b;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 16.666667%;
+    overflow-y: auto;
+    padding-top: 56px;
+    background-color: #8D690C;
+}
+
+img.logo {
+    width: 200px;
+    border-radius: 100%;
+}
+
+span.menu {
+    font-size: 50px;
+    margin-left: 70px;
+    margin-top: 50px;
+}
+
+a {
+    text-decoration: none;
+    font-size: 15px;
+    color: black;
+}
+
+hr {
+    color: black;
+}
+
+.zero-sidebar {
+    background-color: aliceblue;
+    padding-bottom: 50px;
+}
+
+.main-content {
+    margin-left: 16.666667%;
+    padding: 20px;
+}
+
+.prod-jas {
+    background-color: aliceblue;
+}
+
+.item {
+    background-color: #F5FCFF;
+    width: 250px;
+    margin-right: 10px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+.owl-nav {
+    text-align: center;
+}
+
+.img-carousel {
+    width: 50px;
+}
+
+footer {
+    background-color: #8F6F1C;
+}
+
+iframe {
+    border-radius: 10px;
+    margin-bottom: 70px;
+    margin-top: 70px;
+}
+
+#myElement {
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+#myElement:hover {
+    transform: scale(1.1);
+}
+
+
+/* CSS untuk animasi */
+
+.nav-menu {
+    transition: transform 0.3s ease;
+}
+
+.nav-menu:hover {
+    transform: scale(1.1);
+}
+
+
+/* CSS untuk status active */
+
+.nav-menu.active {
+    background-color: #EBAF14;
+    color: #ffffff;
+}
+
+@media only screen and (max-width: 500px) {
+    img.hero-photo {
+        margin-right: 30px;
+    }
+}
+
+.text-left {
+    text-align: left;
+}

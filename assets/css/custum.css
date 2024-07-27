@@ -1,0 +1,44 @@
+/* css/custom.css */
+
+
+/* Center the card in the middle of the screen */
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #0d5eae;
+    margin: 0;
+    font-family: 'Public Sans', sans-serif;
+}
+
+
+/* Style the card */
+
+.card {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+}
+
+
+/* Style the button */
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
+
+/* Center the logo */
+
+.app-brand {
+    margin-bottom: 20px;
+}
