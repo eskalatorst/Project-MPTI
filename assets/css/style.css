@@ -65,11 +65,6 @@ section.hero {
     background-color: #FFFBF3;
 }
 
-img.hero-photo {
-    width: 40%;
-    margin-left: 300px;
-}
-
 h2.zahra.ms-2 {
     margin-top: 100px;
     color: white;
@@ -213,11 +208,7 @@ iframe {
     color: #ffffff;
 }
 
-@media only screen and (max-width: 500px) {
-    img.hero-photo {
-        margin-right: 30px;
-    }
-}
+@media only screen and (max-width: 500px) {}
 
 .text-left {
     text-align: left;

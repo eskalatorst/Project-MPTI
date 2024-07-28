@@ -48,23 +48,23 @@
                             <button type="submit" class="btn btn-daftar me-4 fw-bold">Masuk</button>
                         </form>
                     </div>
-                    
+
     </header>
 
     <section id="Beranda" class="hero">
         <div class="container">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-8">
                     <p class="hero animate__animated animate__fadeInLeft">Buat kamu yang lagi kuliah di jogja,<br>
                         bingung cari kosan deket kampus<br> dan yang pastinya murah<br>
                         <span class="zahra text-warning">KosZahra</span> Solusinya
                     </p>
                     <button type="button" class="btn btn-kontak animate__animated animate__fadeInLeft" onclick="window.location.href='https://api.whatsapp.com/send/?phone=6285658536192&text&type=phone_number&app_absent=0'">Kontak Kami</button>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <img id="myElement" class="hero-photo animate__animated animate__fadeInLeft" src="./assets/img/hero.png" alt="">
                 </div>
-            </div>                 
+            </div>
         </div>
         </div>
     </section>
@@ -225,7 +225,7 @@
                             </button>
                         </div>
                         <div class="container mt-3">
-                        <div class="row">
+                            <div class="row">
                                 <div class="col-6 d-flex align-items-center">
                                     <img src="./assets/img/kamar_ukuran.png" class="me-2" alt="icon" style="width: 20px; height: 20px;">
                                     <p class="fw-light text-black mb-0">kamar ukuran 3x4</p>
@@ -308,7 +308,7 @@
                             </button>
                         </div>
                         <div class="container mt-3">
-                        <div class="row">
+                            <div class="row">
                                 <div class="col-6 d-flex align-items-center">
                                     <img src="./assets/img/kamar_ukuran.png" class="me-2" alt="icon" style="width: 20px; height: 20px;">
                                     <p class="fw-light text-black mb-0">kamar ukuran 3x4</p>
@@ -366,8 +366,7 @@
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <div id="myElement">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.621799583082!2d110.36856337476634!3d-7.829791792191183!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a579eac8fa945%3A0xa27a9a0679dbcbe9!2sskrentalcamera!5e0!3m2!1sid!2sid!4v1711979703048!5m2!1sid!2sid" width="600" height="300" style="border:0; border-radius: 5px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-                        </iframe>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.7433940677893!2d110.3189608!3d-7.8169637!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7af9470f460987%3A0x96586e1f209a8a7a!2sKos%20Putra%20Suharjiyono!5e0!3m2!1sid!2sid!4v1722182414501!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
                 <div class="col-md-6 mb-3 d-flex flex-column justify-content-center">
@@ -402,8 +401,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.621799583082!2d110.36856337476634!3d-7.829791792191183!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a579eac8fa945%3A0xa27a9a0679dbcbe9!2sskrentalcamera!5e0!3m2!1sid!2sid!4v1711979703048!5m2!1sid!2sid" width="600" height="616" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" border-radius: "5px;">
-                    </iframe>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.7433940677893!2d110.3189608!3d-7.8169637!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7af9470f460987%3A0x96586e1f209a8a7a!2sKos%20Putra%20Suharjiyono!5e0!3m2!1sid!2sid!4v1722182414501!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
                 <div class="col-md-1"></div>
                 <div class="col-md-5">

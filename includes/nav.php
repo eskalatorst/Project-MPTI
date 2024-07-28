@@ -13,11 +13,14 @@
     <div class="container-fluid">
         <div class="row flex-nowrap">
             <nav class="navv col-auto col-md-3 col-xl-2 px-sm-2 px-0 text-white">
-                <div class="align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                <button class="navbar-toggler d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100" id="sidebarMenu">
                     <img src="../assets/img/logo1.png" alt="Logo" style="width: 70px; margin-left: 50px;">
                     <p style="color: white; margin-left: 15px; margin-top: 20px;">Kos Putra Suharjiyono</p>
                     <hr>
-                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-left text-left" id="menu">
+                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start text-left" id="menu">
                         <li class="nav-item">
                             <div class="row">
                                 <div class="col-2 pb-1">
@@ -63,37 +66,33 @@
             </nav>
         </div>
     </div>
-<script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Ambil semua elemen menu
+            const navMenus = document.querySelectorAll('.nav-menu');
 
+            // Tambahkan event listener untuk animasi hover dan status active
+            navMenus.forEach(navMenu => {
+                navMenu.addEventListener('mouseover', function() {
+                    this.classList.add('hover');
+                });
 
-    document.addEventListener('DOMContentLoaded', function() {
-        // Ambil semua elemen menu
-        const navMenus = document.querySelectorAll('.nav-menu');
+                navMenu.addEventListener('mouseout', function() {
+                    this.classList.remove('hover');
+                });
 
-        // Tambahkan event listener untuk animasi hover dan status active
-        navMenus.forEach(navMenu => {
-            navMenu.addEventListener('mouseover', function() {
-                this.classList.add('hover');
-            });
+                navMenu.addEventListener('click', function() {
+                    // Hapus kelas active dari semua menu
+                    navMenus.forEach(menu => menu.classList.remove('active'));
 
-            navMenu.addEventListener('mouseout', function() {
-                this.classList.remove('hover');
-            });
-
-            navMenu.addEventListener('click', function() {
-                // Hapus kelas active dari semua menu
-                navMenus.forEach(menu => menu.classList.remove('active'));
-
-                // Tambahkan kelas active ke menu yang diklik
-                this.classList.add('active');
+                    // Tambahkan kelas active ke menu yang diklik
+                    this.classList.add('active');
+                });
             });
         });
-    });
-
-
-
-</script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 
 </html>

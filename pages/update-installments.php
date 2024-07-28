@@ -50,10 +50,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $price_per_installment = $totalprice / $current_installments;
 
             // Hitung sisa harga setelah mengurangi cicilan yang dibayar
-            $remaining_payment = max(0, $totalprice - $paid_installment);
+            $remaining_payment = max(0, $totalprice - $price_per_installment);
 
             // Hitung jumlah cicilan yang tersisa (sesuaikan dengan aturan pembulatan)
-            $new_installments = ceil($remaining_payment / $price_per_installment);
+            $new_installments = $current_installments - 1;
 
             // Update informasi cicilan tenant
             $sql_update = "UPDATE tenant SET totalprice = $remaining_payment, installments = $new_installments WHERE id = $tenant_id";
