@@ -426,9 +426,6 @@
                     </div>
                     <hr style="border: none; border-top: 3px solid white; margin-bottom: 1rem;">
 
-                    <p class="text-white">Beranda</p>
-                    <p class="text-white">Fasilitas</p>
-                    <p class="text-white">Galeri</p><br>
                     <p class="text-white">Ikuti kami dan dapatkan info menarik</p>
 
                     <div class="row mt-3">
