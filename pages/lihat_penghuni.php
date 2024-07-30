@@ -1,4 +1,11 @@
 <?php
+session_start();
+if (!isset($_SESSION['log'])) {
+    header('Location: login.php'); // Ganti dengan path ke halaman login Anda
+    exit();
+}
+?>
+<?php
 include '../includes/koneksi.php'; // Ensure this file contains your database connection logic
 
 // Check if a delete action is requested
@@ -22,7 +29,7 @@ $sql = "SELECT * FROM tenant";
 // Check if there's a search input
 if (isset($_POST['searchInput']) && !empty($_POST['searchInput'])) {
     $search = mysqli_real_escape_string($koneksi, $_POST['searchInput']);
-    $sql = "SELECT * FROM tenant WHERE fullname LIKE '%$search%' OR address LIKE '%$search%' OR roomtype LIKE '%$search%' OR paymentstatus LIKE '%$search%' OR phone LIKE '%$search%' OR rentalduration LIKE '%$search%' OR entrydate LIKE '%$search%'";
+    $sql = "SELECT * FROM tenant WHERE fullname LIKE '%$search%' OR address LIKE '%$search%' OR roomtype LIKE '%$search%' OR paymentstatus LIKE '%$search%' OR phone LIKE '%$search%' OR rentalduration LIKE '%$search%' OR entrydate LIKE '%$search%' OR roomnumber LIKE '%$search%'";
 }
 
 $result = mysqli_query($koneksi, $sql);
@@ -70,11 +77,10 @@ $result = mysqli_query($koneksi, $sql);
     ?>
     <div class="container-fluid">
         <div class="row flex-nowrap">
-
             <div class="main-content col">
                 <div class="container mt-4">
                     <div class="row justify-content-between">
-                    <div class="col-auto">
+                        <div class="col-auto">
                             <form action="./tambah-penghuni.php" method="post">
                                 <button type="submit" class="btn btn-daftar me-4 fw-bold">Tambah Penghuni</button>
                             </form>
@@ -106,6 +112,7 @@ $result = mysqli_query($koneksi, $sql);
                                             <th scope="col">Nama Lengkap</th>
                                             <th scope="col">Alamat Rumah</th>
                                             <th scope="col">Tipe Kamar</th>
+                                            <th scope="col">Nomor Kamar</th>
                                             <th scope="col">Status Pembayaran</th>
                                             <th scope="col">Nomor Telepon</th>
                                             <th scope="col">Durasi Sewa</th>
@@ -124,6 +131,7 @@ $result = mysqli_query($koneksi, $sql);
                                                 echo "<td>{$row['fullname']}</td>";
                                                 echo "<td>{$row['address']}</td>";
                                                 echo "<td>{$row['roomtype']}</td>";
+                                                echo "<td>{$row['roomnumber']}</td>";
                                                 echo "<td>{$row['paymentstatus']}</td>";
                                                 echo "<td>{$row['phone']}</td>";
                                                 echo "<td>{$row['rentalduration']}</td>";
@@ -136,7 +144,7 @@ $result = mysqli_query($koneksi, $sql);
                                                 $no++;
                                             }
                                         } else {
-                                            echo "<tr><td colspan='9' class='text-center'>Tidak ada data penghuni.</td></tr>";
+                                            echo "<tr><td colspan='10' class='text-center'>Tidak ada data penghuni.</td>";
                                         }
 
                                         // Close the database connection
