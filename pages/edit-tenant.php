@@ -1,4 +1,10 @@
 <?php
+session_start();
+if (!isset($_SESSION['log'])) {
+    header('Location: login.php'); // Ganti dengan path ke halaman login Anda
+    exit();
+}
+
 // Include the database connection file
 include '../includes/koneksi.php';
 
@@ -21,20 +27,26 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
         $entrydate = $row['entrydate'];
         $totalprice = $row['totalprice'];
         $installments = $row['installments'];
+        $roomnumber = $row['roomnumber'];
+
+        // Query to get occupied rooms
+        $occupiedSql = "SELECT roomnumber FROM tenant WHERE roomtype = '$roomtype' AND id != '$id'";
+        $occupiedResult = mysqli_query($koneksi, $occupiedSql);
+        $occupiedRooms = [];
+        while ($rowOccupied = mysqli_fetch_assoc($occupiedResult)) {
+            $occupiedRooms[] = $rowOccupied['roomnumber'];
+        }
     } else {
-        // If no data found for the given ID, redirect or show an error message
         echo "Data tidak ditemukan.";
         exit;
     }
 } else {
-    // If no ID is provided, redirect or show an error message
     echo "ID tidak ditemukan.";
     exit;
 }
 
 // Process form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Collect form data
     $fullname = $_POST['fullname'];
     $address = $_POST['address'];
     $roomtype = $_POST['roomtype'];
@@ -44,12 +56,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $entrydate = $_POST['entrydate'];
     $totalprice = $_POST['totalprice'];
     $installments = $_POST['installments'] ?? 0;
+    $roomnumber = $_POST['roomnumber'];
 
-    // Update query
-    $updateSql = "UPDATE tenant SET fullname='$fullname', address='$address', roomtype='$roomtype', paymentstatus='$paymentstatus', phone='$phone', rentalduration='$rentalduration', entrydate='$entrydate', totalprice='$totalprice', installments='$installments' WHERE id='$id'";
+    $updateSql = "UPDATE tenant SET fullname='$fullname', address='$address', roomtype='$roomtype', paymentstatus='$paymentstatus', phone='$phone', rentalduration='$rentalduration', entrydate='$entrydate', totalprice='$totalprice', installments='$installments', roomnumber='$roomnumber' WHERE id='$id'";
 
     if (mysqli_query($koneksi, $updateSql)) {
-        // Redirect to lihat_penghuni.php after update
         header("Location: lihat_penghuni.php");
         exit;
     } else {
@@ -62,7 +73,6 @@ mysqli_close($koneksi);
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -70,14 +80,12 @@ mysqli_close($koneksi);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/style.css">
     <style>
-        /* Custom styles */
         .card-img-top {
             height: 200px;
             object-fit: cover;
         }
     </style>
 </head>
-
 <body>
     <?php include "../includes/nav.php" ?>
 
@@ -102,11 +110,11 @@ mysqli_close($koneksi);
                     <form method="post">
                         <div class="mb-3">
                             <label for="fullname" class="form-label">Nama Lengkap</label>
-                            <input type="text" class="form-control" id="fullname" name="fullname" value="<?php echo $fullname; ?>" required>
+                            <input type="text" class="form-control" id="fullname" name="fullname" value="<?php echo htmlspecialchars($fullname); ?>" required>
                         </div>
                         <div class="mb-3">
                             <label for="address" class="form-label">Alamat Rumah</label>
-                            <input type="text" class="form-control" id="address" name="address" value="<?php echo $address; ?>" required>
+                            <input type="text" class="form-control" id="address" name="address" value="<?php echo htmlspecialchars($address); ?>" required>
                         </div>
                         <div class="mb-3">
                             <label for="roomtype" class="form-label">Tipe Kamar</label>
@@ -114,6 +122,12 @@ mysqli_close($koneksi);
                                 <option value="A" <?php if ($roomtype == 'A') echo 'selected'; ?>>A</option>
                                 <option value="B" <?php if ($roomtype == 'B') echo 'selected'; ?>>B</option>
                                 <option value="C" <?php if ($roomtype == 'C') echo 'selected'; ?>>C</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="roomnumber" class="form-label">Nomor Kamar</label>
+                            <select class="form-select" id="roomnumber" name="roomnumber" required>
+                                <!-- Options will be populated by JavaScript -->
                             </select>
                         </div>
                         <div class="mb-3">
@@ -125,7 +139,7 @@ mysqli_close($koneksi);
                         </div>
                         <div class="mb-3">
                             <label for="totalprice" class="form-label">Total Harga Kos</label>
-                            <input type="text" class="form-control" id="totalprice" name="totalprice" value="<?php echo $totalprice; ?>" readonly>
+                            <input type="text" class="form-control" id="totalprice" name="totalprice" value="<?php echo htmlspecialchars($totalprice); ?>" readonly>
                         </div>
                         <div class="mb-3">
                             <label for="paymentstatus" class="form-label">Status Pembayaran</label>
@@ -136,17 +150,17 @@ mysqli_close($koneksi);
                         </div>
                         <div class="mb-3 <?php if ($paymentstatus != 'belum_lunas') echo 'd-none'; ?>" id="installment-div">
                             <label for="installments" class="form-label">Jumlah Cicilan</label>
-                            <input type="number" class="form-control" id="installments" name="installments" value="<?php echo $installments; ?>">
+                            <input type="number" class="form-control" id="installments" name="installments" value="<?php echo htmlspecialchars($installments); ?>">
                         </div>
                         <div class="mb-3">
                             <label for="phone" class="form-label">Nomor Telepon</label>
-                            <input type="text" class="form-control" id="phone" name="phone" value="<?php echo $phone; ?>" required>
+                            <input type="text" class="form-control" id="phone" name="phone" value="<?php echo htmlspecialchars($phone); ?>" required>
                         </div>
                         <div class="mb-3">
                             <label for="entrydate" class="form-label">Tanggal Masuk</label>
-                            <input type="date" class="form-control" id="entrydate" name="entrydate" value="<?php echo $entrydate; ?>" required>
+                            <input type="date" class="form-control" id="entrydate" name="entrydate" value="<?php echo htmlspecialchars($entrydate); ?>" required>
                         </div>
-                        <input type="hidden" name="id" value="<?php echo $id; ?>">
+                        <input type="hidden" name="id" value="<?php echo htmlspecialchars($id); ?>">
                         <button type="submit" class="btn btn-daftar me-4 fw-bold mb-4">Simpan Perubahan</button>
                         <a href="lihat_penghuni.php" class="btn btn-secondary">Batal</a>
                     </form>
@@ -164,6 +178,10 @@ mysqli_close($koneksi);
             const totalPriceInput = document.getElementById('totalprice');
             const paymentStatusSelect = document.getElementById('paymentstatus');
             const installmentDiv = document.getElementById('installment-div');
+            const roomNumberSelect = document.getElementById('roomnumber');
+
+            // Daftar kamar yang terisi dari server-side (misalnya dalam format JSON)
+            const occupiedRooms = <?php echo json_encode($occupiedRooms); ?>;
 
             function calculateTotalPrice() {
                 const roomType = roomTypeSelect.value;
@@ -172,34 +190,59 @@ mysqli_close($koneksi);
                 let totalPrice = 0;
 
                 if (roomType === 'A') {
-                    totalPrice = rentalDuration === '1 bulan' ? 650000 : 7500000;
+                    totalPrice = rentalDuration === '1 tahun' ? 7500000 : 650000;
                 } else if (roomType === 'B') {
-                    totalPrice = rentalDuration === '1 bulan' ? 500000 : 4500000;
+                    totalPrice = rentalDuration === '1 tahun' ? 4500000 : 500000;
                 } else if (roomType === 'C') {
-                    totalPrice = rentalDuration === '1 bulan' ? 500000 : 4300000;
+                    totalPrice = rentalDuration === '1 tahun' ? 4300000 : 500000;
                 }
 
                 totalPriceInput.value = totalPrice;
             }
 
-            function toggleInstallmentDiv() {
-                const paymentStatus = paymentStatusSelect.value;
-                if (paymentStatus === 'belum_lunas') {
-                    installmentDiv.classList.remove('d-none');
-                } else {
-                    installmentDiv.classList.add('d-none');
+            function updateRoomNumbers() {
+                const roomType = roomTypeSelect.value;
+                let options = '';
+
+                const occupiedSet = new Set(occupiedRooms);
+
+                if (roomType === 'A') {
+                    for (let i = 1; i <= 10; i++) {
+                        if (!occupiedSet.has(i.toString())) {
+                            options += `<option value="${i}">Kamar ${i}</option>`;
+                        }
+                    }
+                } else if (roomType === 'B') {
+                    for (let i = 11; i <= 19; i++) {
+                        if (!occupiedSet.has(i.toString())) {
+                            options += `<option value="${i}">Kamar ${i}</option>`;
+                        }
+                    }
+                } else if (roomType === 'C') {
+                    for (let i = 20; i <= 30; i++) {
+                        if (!occupiedSet.has(i.toString())) {
+                            options += `<option value="${i}">Kamar ${i}</option>`;
+                        }
+                    }
                 }
+
+                roomNumberSelect.innerHTML = options;
             }
 
-            roomTypeSelect.addEventListener('change', calculateTotalPrice);
-            rentalDurationSelect.addEventListener('change', calculateTotalPrice);
-            paymentStatusSelect.addEventListener('change', toggleInstallmentDiv);
+            roomTypeSelect.addEventListener('change', function() {
+                updateRoomNumbers();
+                calculateTotalPrice();
+            });
 
-            // Initial calculation
+            rentalDurationSelect.addEventListener('change', calculateTotalPrice);
+            paymentStatusSelect.addEventListener('change', function() {
+                installmentDiv.classList.toggle('d-none', paymentStatusSelect.value !== 'belum_lunas');
+            });
+
+            // Initial call to populate the room numbers based on the default room type
+            updateRoomNumbers();
             calculateTotalPrice();
-            toggleInstallmentDiv();
         });
     </script>
 </body>
-
 </html>

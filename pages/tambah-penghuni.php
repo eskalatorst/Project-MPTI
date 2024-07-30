@@ -1,3 +1,18 @@
+<?php
+include "../includes/koneksi.php";
+
+// Fetch occupied room numbers from the database
+$occupiedRoomsQuery = "SELECT roomnumber FROM tenant WHERE roomtype = 'A' UNION ALL SELECT roomnumber FROM tenant WHERE roomtype = 'B' UNION ALL SELECT roomnumber FROM tenant WHERE roomtype = 'C'";
+$occupiedRoomsResult = mysqli_query($koneksi, $occupiedRoomsQuery);
+
+$occupiedRooms = [];
+while ($row = mysqli_fetch_assoc($occupiedRoomsResult)) {
+    $occupiedRooms[] = $row['roomnumber'];
+}
+
+mysqli_close($koneksi);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,7 +40,6 @@
             <!-- Navbar Column -->
             <div class="col-md-2">
                 <!-- Include your navbar code here -->
-                
             </div>
 
             <!-- Main Content Column -->
@@ -59,6 +73,12 @@
                             </select>
                         </div>
                         <div class="mb-3">
+                            <label for="roomnumber" class="form-label">Nomor Kamar</label>
+                            <select class="form-select" id="roomnumber" name="roomnumber" required>
+                                <!-- Options will be populated by JavaScript -->
+                            </select>
+                        </div>
+                        <div class="mb-3">
                             <label for="rentalduration" class="form-label">Durasi Sewa</label>
                             <select class="form-select" id="rentalduration" name="rentalduration" required>
                                 <option value="1 bulan">1 Bulan</option>
@@ -88,9 +108,12 @@
                             <label for="entrydate" class="form-label">Tanggal Masuk</label>
                             <input type="date" class="form-control" id="entrydate" name="entrydate" required>
                         </div>
+                        <div class="mb-3">
+                            <label for="enddate" class="form-label">Tanggal Selesai</label>
+                            <input type="date" class="form-control" id="enddate" name="enddate" readonly>
+                        </div>
                         <input type="hidden" name="redirect" value="lihat_penghuni.php">
                         <button type="submit" class="btn btn-daftar me-4 fw-bold mb-4">Tambah</button>
-                        
                     </form>
                 </div>
             </div>
@@ -106,6 +129,40 @@
             const totalPriceInput = document.getElementById('totalprice');
             const paymentStatusSelect = document.getElementById('paymentstatus');
             const installmentDiv = document.getElementById('installment-div');
+            const entryDateInput = document.getElementById('entrydate');
+            const endDateInput = document.getElementById('enddate');
+            const roomNumberSelect = document.getElementById('roomnumber');
+
+            const occupiedRooms = <?php echo json_encode($occupiedRooms); ?>;
+
+            function updateRoomNumbers() {
+                const roomType = roomTypeSelect.value;
+                let options = '';
+
+                const occupiedSet = new Set(occupiedRooms);
+
+                if (roomType === 'A') {
+                    for (let i = 1; i <= 10; i++) {
+                        if (!occupiedSet.has(i.toString())) {
+                            options += `<option value="${i}">Kamar ${i}</option>`;
+                        }
+                    }
+                } else if (roomType === 'B') {
+                    for (let i = 11; i <= 19; i++) {
+                        if (!occupiedSet.has(i.toString())) {
+                            options += `<option value="${i}">Kamar ${i}</option>`;
+                        }
+                    }
+                } else if (roomType === 'C') {
+                    for (let i = 20; i <= 30; i++) {
+                        if (!occupiedSet.has(i.toString())) {
+                            options += `<option value="${i}">Kamar ${i}</option>`;
+                        }
+                    }
+                }
+
+                roomNumberSelect.innerHTML = options;
+            }
 
             function calculateTotalPrice() {
                 const roomType = roomTypeSelect.value;
@@ -133,11 +190,42 @@
                 }
             }
 
-            roomTypeSelect.addEventListener('change', calculateTotalPrice);
-            rentalDurationSelect.addEventListener('change', calculateTotalPrice);
-            paymentStatusSelect.addEventListener('change', toggleInstallmentDiv);
+            function setEntryDate() {
+                const now = new Date();
+                const today = now.toISOString().split('T')[0];
 
+                entryDateInput.value = today;
+            }
+
+            function calculateEndDate() {
+                const entryDate = new Date(entryDateInput.value);
+                const rentalDuration = rentalDurationSelect.value;
+
+                if (rentalDuration === '1 bulan') {
+                    entryDate.setMonth(entryDate.getMonth() + 1);
+                } else if (rentalDuration === '1 tahun') {
+                    entryDate.setFullYear(entryDate.getFullYear() + 1);
+                }
+
+                endDateInput.value = entryDate.toISOString().split('T')[0];
+            }
+
+            roomTypeSelect.addEventListener('change', () => {
+                updateRoomNumbers();
+                calculateTotalPrice();
+                calculateEndDate();
+            });
+            rentalDurationSelect.addEventListener('change', () => {
+                calculateTotalPrice();
+                calculateEndDate();
+            });
+            paymentStatusSelect.addEventListener('change', toggleInstallmentDiv);
+            entryDateInput.addEventListener('change', calculateEndDate);
+
+            setEntryDate();
+            updateRoomNumbers();
             calculateTotalPrice();
+            calculateEndDate();
             toggleInstallmentDiv();
         });
     </script>

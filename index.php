@@ -19,7 +19,7 @@
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container">
                 <img src="./assets/img/logo1.png" class="img-logo me-3" alt="">
-                <h3 class="koszahra">Kos Putra Suharjoyono</h3>
+                <h3 class="koszahra">Kos Putra Suharjiyono</h3>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -426,6 +426,9 @@
                     </div>
                     <hr style="border: none; border-top: 3px solid white; margin-bottom: 1rem;">
 
+                    <p class="text-white">Beranda</p>
+                    <p class="text-white">Fasilitas</p>
+                    <p class="text-white">Galeri</p><br>
                     <p class="text-white">Ikuti kami dan dapatkan info menarik</p>
 
                     <div class="row mt-3">

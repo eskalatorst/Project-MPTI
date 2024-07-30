@@ -1,3 +1,11 @@
+<?php
+session_start();
+if (!isset($_SESSION['log'])) {
+    header('Location: login.php'); // Ganti dengan path ke halaman login Anda
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
