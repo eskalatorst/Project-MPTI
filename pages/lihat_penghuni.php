@@ -138,7 +138,7 @@ $result = mysqli_query($koneksi, $sql);
                                                 echo "<td>{$row['entrydate']}</td>";
                                                 echo "<td>
                                                         <a href='edit-tenant.php?id={$row['id']}' class='btn btn-warning btn-sm me-1'>Edit</a>
-                                                        <a href='lihat_penghuni.php?delete_id={$row['id']}' class='btn btn-danger btn-sm' onclick=\"return confirm('Apakah Anda yakin untuk menghapus penghuni ini?');\">Hapus</a>
+                                                        
                                                       </td>";
                                                 echo "</tr>";
                                                 $no++;

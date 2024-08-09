@@ -1,11 +1,12 @@
 <?php
 session_start();
+
+// Cek apakah pengguna sudah login
 if (!isset($_SESSION['log'])) {
-    header('Location: login.php'); // Ganti dengan path ke halaman login Anda
+    header('Location: login.php'); // Arahkan ke halaman login jika tidak terautentikasi
     exit();
 }
-?>
-<?php
+
 include '../includes/koneksi.php';
 
 // Query untuk mendapatkan tenant dan informasi cicilan
@@ -74,7 +75,7 @@ if (!$result) {
             <div class="row">
                 <div class="col-md-12">
                     <h2 class="text-center pb-4">Daftar Penghuni dan Cicilan</h2>
-                    <form action="update-installments.php" method="post">
+                    <form id="billingForm" action="update-installments.php" method="post">
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered align-middle">
                                 <thead>
@@ -113,7 +114,7 @@ if (!$result) {
                             </table>
                         </div>
                         <div class="text-center mt-4">
-                            <button type="submit" class="btn btn-primary">Update Cicilan</button>
+                            <button type="button" class="btn btn-primary" onclick="confirmUpdate()">Update Cicilan</button>
                         </div>
                     </form>
                 </div>
@@ -123,6 +124,13 @@ if (!$result) {
 
     <!-- Bootstrap JS and dependencies -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function confirmUpdate() {
+            if (confirm('Apakah Anda yakin ingin memperbarui cicilan?')) {
+                document.getElementById('billingForm').submit();
+            }
+        }
+    </script>
 </body>
 </html>
 
